@@ -1,6 +1,12 @@
 # ImgConvert
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 Small local GUI tool to batch-convert images between JPEG/JPG, PNG, WebP, GIF, TIFF/TIF, and HEIC/HEIF.
+
+## Download
+
+Grab the latest Windows exe from the [Releases](../../releases) page — no Python install needed.
 
 ## Setup
 
