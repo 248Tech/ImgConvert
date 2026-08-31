@@ -21,6 +21,7 @@ ImgConvert batch-converts images between JPEG/JPG, PNG, WebP, GIF, TIFF/TIF, and
 
 - Batch convert between JPEG/JPG, PNG, WebP, GIF, TIFF/TIF, and HEIC/HEIF
 - Drag and drop files or folders, or paste a path directly
+- Windows Explorer right-click **Convert To** menu, per format, output next to the original file
 - Automatic EXIF-orientation correction (fixes sideways/upside-down phone photos)
 - Progress bar and a per-file success/failure log
 - Light and dark theme toggle
@@ -49,6 +50,12 @@ python imgconvert.py
 4. Click **Convert**.
 
 Files that fail to convert (not an image, corrupt, etc.) are skipped and listed in the log — the rest of the batch still runs.
+
+## Right-click "Convert To" menu
+
+Click **"Add Right-Click Menu"** in the app's header to add a **Convert To** submenu (JPEG, PNG, WebP, GIF, HEIC, TIFF) to the Explorer right-click menu for supported image files. Pick a format and the converted file is written right next to the original — no need to open the app.
+
+This writes only to `HKEY_CURRENT_USER`, so it applies to your Windows account and doesn't need admin rights. To remove it, run `ImgConvert.exe --uninstall-context-menu`.
 
 ## Windows SmartScreen / "Unknown publisher"
 

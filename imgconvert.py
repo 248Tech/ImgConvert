@@ -3,8 +3,10 @@
 import base64
 import os
 import subprocess
+import sys
 import tempfile
 import tkinter as tk
+import winreg
 from tkinter import filedialog, font, messagebox, ttk
 
 from PIL import Image, ImageOps
@@ -88,6 +90,86 @@ FORMAT_INFO = {
     "TIFF": {"ext": ".tiff", "pil_format": "TIFF"},
 }
 FORMATS = list(FORMAT_INFO.keys())
+
+CONTEXT_MENU_KEY = "ImgConvert"
+
+
+def _self_command_prefix():
+    """Command-line prefix that re-invokes this same app (frozen exe or dev script)."""
+    if getattr(sys, "frozen", False):
+        return [sys.executable]
+    return [sys.executable, os.path.abspath(__file__)]
+
+
+def _delete_key_recursive(root, path):
+    try:
+        key = winreg.OpenKey(root, path, 0, winreg.KEY_ALL_ACCESS)
+    except FileNotFoundError:
+        return
+    with key:
+        while True:
+            try:
+                subkey_name = winreg.EnumKey(key, 0)
+            except OSError:
+                break
+            _delete_key_recursive(root, f"{path}\\{subkey_name}")
+    winreg.DeleteKey(root, path)
+
+
+def install_context_menu():
+    """Add a 'Convert To' submenu (one entry per format) to the Explorer right-click
+    menu for supported image extensions. Writes under HKCU so no admin rights are
+    needed. Each entry re-invokes this exe with --convert-to and outputs next to
+    the source file."""
+    prefix = " ".join(f'"{p}"' for p in _self_command_prefix())
+    exe_for_icon = _self_command_prefix()[0]
+
+    for ext in sorted(SUPPORTED_EXTS):
+        base = f"Software\\Classes\\SystemFileAssociations\\{ext}\\shell\\{CONTEXT_MENU_KEY}"
+        with winreg.CreateKey(winreg.HKEY_CURRENT_USER, base) as key:
+            winreg.SetValueEx(key, None, 0, winreg.REG_SZ, "Convert To")
+            winreg.SetValueEx(key, "Icon", 0, winreg.REG_SZ, f'"{exe_for_icon}"')
+
+        for i, fmt in enumerate(FORMATS, start=1):
+            sub = f"{base}\\shell\\{i:02d}_{fmt}"
+            with winreg.CreateKey(winreg.HKEY_CURRENT_USER, sub) as subkey:
+                winreg.SetValueEx(subkey, None, 0, winreg.REG_SZ, fmt)
+            with winreg.CreateKey(winreg.HKEY_CURRENT_USER, f"{sub}\\command") as cmdkey:
+                winreg.SetValueEx(cmdkey, None, 0, winreg.REG_SZ, f'{prefix} --convert-to {fmt} "%1"')
+
+    return True, f"Added 'Convert To' to the right-click menu for {len(SUPPORTED_EXTS)} image file types."
+
+
+def uninstall_context_menu():
+    for ext in sorted(SUPPORTED_EXTS):
+        base = f"Software\\Classes\\SystemFileAssociations\\{ext}\\shell\\{CONTEXT_MENU_KEY}"
+        _delete_key_recursive(winreg.HKEY_CURRENT_USER, base)
+    return True, "Removed 'Convert To' from the right-click menu."
+
+
+def cli_convert(argv):
+    """Entry point when launched from the Explorer 'Convert To' menu:
+    <exe> --convert-to FORMAT <file1> [file2 ...]. Converts each file into its
+    own folder (same folder it was found in) and exits without opening the GUI."""
+    idx = argv.index("--convert-to")
+    target_format = argv[idx + 1].upper()
+    file_paths = argv[idx + 2 :]
+
+    errors = []
+    if target_format not in FORMAT_INFO:
+        errors.append(f"Unknown format: {target_format}")
+    else:
+        for path in file_paths:
+            try:
+                convert_file(path, os.path.dirname(path) or ".", target_format)
+            except Exception as exc:
+                errors.append(f"{os.path.basename(path)}: {exc}")
+
+    if errors:
+        root = tk.Tk()
+        root.withdraw()
+        messagebox.showerror("ImgConvert", "\n".join(errors))
+        root.destroy()
 
 # Formats with no (or limited) alpha support - flatten onto white/RGB first.
 FLATTEN_FORMATS = {"JPEG"}
@@ -288,6 +370,13 @@ class ImgConvertApp:
         else:
             messagebox.showerror("Trust This App", message)
 
+    def _install_context_menu(self):
+        try:
+            ok, message = install_context_menu()
+            messagebox.showinfo("Right-Click Menu", message)
+        except OSError as exc:
+            messagebox.showerror("Right-Click Menu", f"Failed to add menu: {exc}")
+
     def _build_ui(self):
         outer = ttk.Frame(self.root, padding=16)
         outer.pack(fill="both", expand=True)
@@ -298,16 +387,20 @@ class ImgConvertApp:
         self.theme_btn = ttk.Button(header, text="", command=self._toggle_theme)
         self.theme_btn.pack(side="right")
         ttk.Button(header, text="Trust This App", command=self._trust_app).pack(side="right", padx=(0, 6))
+        ttk.Button(
+            header, text="Add Right-Click Menu", command=self._install_context_menu
+        ).pack(side="right", padx=(0, 6))
+
         ttk.Label(
-            header,
+            outer,
             text="Drag files/folders below, or use Add"
             if HAS_DND
             else "Use Add Files / Add Folder below",
             style="Muted.TLabel",
-        ).pack(side="right", padx=(0, 10))
+        ).pack(fill="x", pady=(10, 2))
 
         self.drop_card = tk.Frame(outer, highlightthickness=1)
-        self.drop_card.pack(fill="both", expand=True, pady=(12, 10))
+        self.drop_card.pack(fill="both", expand=True, pady=(0, 10))
 
         self.listbox = tk.Listbox(
             self.drop_card,
@@ -476,6 +569,16 @@ class ImgConvertApp:
 
 
 def main():
+    if "--convert-to" in sys.argv:
+        cli_convert(sys.argv)
+        return
+    if "--install-context-menu" in sys.argv:
+        install_context_menu()
+        return
+    if "--uninstall-context-menu" in sys.argv:
+        uninstall_context_menu()
+        return
+
     root = TkinterDnD.Tk() if HAS_DND else tk.Tk()
     ImgConvertApp(root)
     root.mainloop()
