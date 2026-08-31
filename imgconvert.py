@@ -129,6 +129,9 @@ def install_context_menu():
         with winreg.CreateKey(winreg.HKEY_CURRENT_USER, base) as key:
             winreg.SetValueEx(key, None, 0, winreg.REG_SZ, "Convert To")
             winreg.SetValueEx(key, "Icon", 0, winreg.REG_SZ, f'"{exe_for_icon}"')
+            # Required so Explorer treats this as a cascading flyout rather than
+            # trying to run the parent key itself as a command.
+            winreg.SetValueEx(key, "SubCommands", 0, winreg.REG_SZ, "")
 
         for i, fmt in enumerate(FORMATS, start=1):
             sub = f"{base}\\shell\\{i:02d}_{fmt}"
