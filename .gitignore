@@ -1,0 +1,9 @@
+# Private signing key/password - never commit these
+signing/
+
+# Build artifacts
+build/
+dist/
+*.spec
+__pycache__/
+*.pyc
