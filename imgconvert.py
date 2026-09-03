@@ -1,6 +1,7 @@
 """ImgConvert - small local GUI to batch-convert images between formats."""
 
 import base64
+import ctypes
 import os
 import subprocess
 import sys
@@ -116,6 +117,16 @@ def _delete_key_recursive(root, path):
     winreg.DeleteKey(root, path)
 
 
+def _notify_shell_associations_changed():
+    """Explorer caches shell-extension/verb data per-process and won't notice
+    registry changes on its own. Without this broadcast, a newly added (or
+    removed) context menu entry may not appear until Explorer happens to
+    restart."""
+    SHCNE_ASSOCCHANGED = 0x08000000
+    SHCNF_IDLIST = 0x0000
+    ctypes.windll.shell32.SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, None, None)
+
+
 def install_context_menu():
     """Add a 'Convert To' submenu (one entry per format) to the Explorer right-click
     menu for supported image extensions. Writes under HKCU so no admin rights are
@@ -127,10 +138,14 @@ def install_context_menu():
     for ext in sorted(SUPPORTED_EXTS):
         base = f"Software\\Classes\\SystemFileAssociations\\{ext}\\shell\\{CONTEXT_MENU_KEY}"
         with winreg.CreateKey(winreg.HKEY_CURRENT_USER, base) as key:
-            winreg.SetValueEx(key, None, 0, winreg.REG_SZ, "Convert To")
-            winreg.SetValueEx(key, "Icon", 0, winreg.REG_SZ, f'"{exe_for_icon}"')
-            # Required so Explorer treats this as a cascading flyout rather than
-            # trying to run the parent key itself as a command.
+            # Per MS docs, a static SubCommands cascade key must NOT have its
+            # (default) value set - the label comes from MUIVerb only. Setting
+            # both is what silently broke the flyout (arrow showed, no items).
+            winreg.SetValueEx(key, "MUIVerb", 0, winreg.REG_SZ, "Convert To")
+            winreg.SetValueEx(key, "Icon", 0, winreg.REG_SZ, exe_for_icon)
+            # Marks this as a static, registry-only cascading menu (as opposed to
+            # a dynamic one backed by a COM handler) - required for Explorer to
+            # treat this key as a flyout container rather than a runnable verb.
             winreg.SetValueEx(key, "SubCommands", 0, winreg.REG_SZ, "")
 
         for i, fmt in enumerate(FORMATS, start=1):
@@ -140,6 +155,7 @@ def install_context_menu():
             with winreg.CreateKey(winreg.HKEY_CURRENT_USER, f"{sub}\\command") as cmdkey:
                 winreg.SetValueEx(cmdkey, None, 0, winreg.REG_SZ, f'{prefix} --convert-to {fmt} "%1"')
 
+    _notify_shell_associations_changed()
     return True, f"Added 'Convert To' to the right-click menu for {len(SUPPORTED_EXTS)} image file types."
 
 
@@ -147,6 +163,7 @@ def uninstall_context_menu():
     for ext in sorted(SUPPORTED_EXTS):
         base = f"Software\\Classes\\SystemFileAssociations\\{ext}\\shell\\{CONTEXT_MENU_KEY}"
         _delete_key_recursive(winreg.HKEY_CURRENT_USER, base)
+    _notify_shell_associations_changed()
     return True, "Removed 'Convert To' from the right-click menu."
 
 
