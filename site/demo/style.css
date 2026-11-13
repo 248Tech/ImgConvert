@@ -1,0 +1,37 @@
+:root{--bg:#1e1f22;--card:#2b2d31;--entry:#232428;--border:#3f4147;--text:#e3e3e3;--muted:#9aa0a6;--accent:#4f8cff;--accent-h:#3f74d1;--ok:#4ade80;--bad:#f87171;color-scheme:dark}
+:root[data-theme="light"]{--bg:#f3f3f3;--card:#fff;--entry:#fff;--border:#d6d6d6;--text:#1a1a1a;--muted:#666;--accent:#2f6fed;--accent-h:#2559c4;--ok:#15803d;--bad:#b91c1c;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 "Segoe UI",system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.bar{display:flex;align-items:center;gap:16px;padding:.7rem 1.2rem;border-bottom:1px solid var(--border);background:var(--card);flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--text);text-decoration:none}
+.tag{font-size:.7rem;font-weight:600;color:var(--accent);border:1px solid var(--accent);border-radius:99px;padding:.05rem .5rem}
+.bar nav{margin-left:auto;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.bar nav a{text-decoration:none;color:var(--muted);font-size:.9rem}.bar nav a:hover{color:var(--text)}
+.bar nav a.dl{background:var(--accent);color:#fff;padding:.4rem .8rem;border-radius:6px;font-weight:600}.bar nav a.dl:hover{background:var(--accent-h);color:#fff}
+main{max-width:860px;margin:0 auto;padding:1.6rem 1.2rem 3rem}
+h1{font-size:1.7rem;margin:0 0 .4rem}h2{font-size:1rem;margin:0}
+.lede{color:var(--muted);margin:0 0 1.2rem;max-width:68ch}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:1rem}
+.drop{border:2px dashed var(--border);border-radius:10px;background:var(--entry);padding:2.2rem 1rem;text-align:center;cursor:pointer;display:grid;gap:4px;transition:.15s}
+.drop:hover,.drop.over{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,var(--entry))}
+.drop span{color:var(--muted);font-size:.88rem}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:12px}.row:first-child{margin-top:0}.sp{flex:1}
+label{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:.88rem}
+select,button{font:inherit}
+select{background:var(--entry);color:var(--text);border:1px solid var(--border);border-radius:6px;padding:.35rem .5rem}
+input[type=range]{accent-color:var(--accent)}output{min-width:2ch;color:var(--text)}
+button{border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:6px;padding:.45rem .9rem;cursor:pointer}
+button:hover:not(:disabled){border-color:var(--accent)}button:disabled{opacity:.5;cursor:not-allowed}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600;padding:.5rem 1.4rem}button.primary:hover:not(:disabled){background:var(--accent-h)}
+button.ghost{background:transparent}
+.progress{height:6px;background:var(--entry);border-radius:6px;margin-top:12px;overflow:hidden;border:1px solid var(--border)}.progress i{display:block;height:100%;width:0;background:var(--accent);transition:width .15s}
+.list{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:8px}
+.list li{display:grid;grid-template-columns:56px 1fr auto;gap:12px;align-items:center;background:var(--entry);border:1px solid var(--border);border-radius:8px;padding:8px}
+.list img{width:56px;height:56px;object-fit:cover;border-radius:6px;background:#0002}
+.list .n{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.list .m{font-size:.8rem;color:var(--muted)}
+.ok{color:var(--ok)}.bad{color:var(--bad)}.muted{color:var(--muted)}.note{font-size:.84rem}
+a.btn{border:1px solid var(--border);border-radius:6px;padding:.35rem .7rem;text-decoration:none;color:var(--text);font-size:.85rem}a.btn:hover{border-color:var(--accent)}
+footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:1.2rem;border-top:1px solid var(--border);color:var(--muted);font-size:.85rem}
+@media(max-width:600px){.list li{grid-template-columns:44px 1fr}.list li>:last-child{grid-column:1/-1}.list img{width:44px;height:44px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}

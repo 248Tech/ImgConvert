@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ImgConvert — Free Offline Image Converter for Windows (HEIC, JPG, PNG, WebP)</title>
+<meta name="description" content="ImgConvert is a free, open-source, offline image converter for Windows. Batch convert HEIC to JPG, PNG, WebP, GIF and TIFF with drag and drop and an Explorer right-click menu. No ads, no telemetry, no installer. Try the online demo.">
+<meta name="keywords" content="image converter, HEIC to JPG, offline image converter, batch image converter, Windows image converter, WebP converter, PNG to JPG, portable, open source, no ads, no telemetry">
+<meta name="author" content="Joe Wayne / 248Tech LLC">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://248tech.github.io/ImgConvert/">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#14161a">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ImgConvert">
+<meta property="og:title" content="ImgConvert — Free Offline Image Converter for Windows">
+<meta property="og:description" content="Batch convert HEIC, JPG, PNG, WebP, GIF and TIFF. Portable .exe, no ads, no telemetry. Try it in your browser.">
+<meta property="og:url" content="https://248tech.github.io/ImgConvert/">
+<meta property="og:image" content="https://248tech.github.io/ImgConvert/assets/og-image.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ImgConvert — Free Offline Image Converter">
+<meta name="twitter:description" content="HEIC → JPG and more. Portable, open source, private.">
+<meta name="twitter:image" content="https://248tech.github.io/ImgConvert/assets/og-image.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"ImgConvert","applicationCategory":"MultimediaApplication","operatingSystem":"Windows 10, Windows 11","description":"Lightweight, open-source, offline image converter for Windows supporting JPEG, PNG, WebP, GIF, TIFF and HEIC.","url":"https://248tech.github.io/ImgConvert/","downloadUrl":"https://github.com/248Tech/ImgConvert/releases/latest","codeRepository":"https://github.com/248Tech/ImgConvert","license":"https://opensource.org/licenses/MIT","softwareVersion":"1.1.1","fileSize":"21MB","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"248Tech LLC","url":"https://github.com/248Tech"}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Does ImgConvert upload my images?","acceptedAnswer":{"@type":"Answer","text":"No. ImgConvert runs entirely on your computer and never makes a network request. There is no telemetry, analytics or update checker."}},
+{"@type":"Question","name":"How do I convert HEIC to JPG on Windows?","acceptedAnswer":{"@type":"Answer","text":"Drag your HEIC files into ImgConvert, choose JPEG from the Convert to menu, and click Convert. Output goes to a converted folder next to the originals, and EXIF orientation is fixed automatically."}},
+{"@type":"Question","name":"Why does Windows SmartScreen warn about ImgConvert?","acceptedAnswer":{"@type":"Answer","text":"The executable is signed with a self-signed certificate rather than a paid public CA certificate. Click More info, then Run anyway; the in-app Trust This App button imports the embedded public certificate for your account."}},
+{"@type":"Question","name":"Is ImgConvert free?","acceptedAnswer":{"@type":"Answer","text":"Yes. ImgConvert is MIT licensed, ad-free and has no paid tier."}},
+{"@type":"Question","name":"Which formats are supported?","acceptedAnswer":{"@type":"Answer","text":"JPEG/JPG, PNG, WebP, GIF, TIFF/TIF and HEIC/HEIF, converting between any of them in batches."}}]}
+]}
+</script>
+<style>
+:root{--bg:#14161a;--panel:#1e1f22;--card:#2b2d31;--line:#3f4147;--text:#e9edf3;--muted:#9aa4b2;--accent:#4f8cff;--accent-h:#3f74d1}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 "Segoe UI",system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#8db4ff;text-decoration:none}a:hover{text-decoration:underline}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:#fff;color:#000;padding:8px;z-index:99}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header.top{position:sticky;top:0;z-index:20;background:rgba(20,22,26,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:20px;height:60px}
+.logo{display:flex;align-items:center;gap:10px;color:var(--text);font-weight:700}.logo img{width:28px;height:28px}
+nav.links{margin-left:auto;display:flex;gap:18px;font-size:.9rem}nav.links a{color:var(--muted)}nav.links a:hover{color:var(--text);text-decoration:none}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:.75rem 1.3rem;border-radius:8px;font-weight:600;border:1px solid var(--line);background:var(--card);color:var(--text)}.btn:hover{text-decoration:none;border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 10px 30px rgba(79,140,255,.3)}.btn.primary:hover{background:var(--accent-h)}
+.hero{padding:72px 0 56px;background:radial-gradient(900px 420px at 80% -10%,rgba(79,140,255,.22),transparent)}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.eyebrow{display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8db4ff;border:1px solid rgba(141,180,255,.4);padding:.25rem .7rem;border-radius:99px}
+h1{font-size:clamp(2.1rem,5vw,3.3rem);line-height:1.1;margin:.9rem 0 1rem;letter-spacing:-.02em}
+.lead{font-size:1.12rem;color:var(--muted);max-width:56ch;margin:0 0 1.5rem}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.fine{font-size:.82rem;color:var(--muted);margin:0 0 18px}
+.badges{display:flex;gap:6px;flex-wrap:wrap}.badges img{height:20px}
+.shot img{width:100%;border-radius:10px;border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.55)}
+section{padding:64px 0}h2{font-size:clamp(1.5rem,3vw,2rem);margin:0 0 .5rem;letter-spacing:-.01em}.sub{color:var(--muted);margin:0 0 32px;max-width:70ch}
+.alt{background:var(--panel);border-block:1px solid var(--line)}
+.grid{display:grid;gap:16px}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px}.card h3{margin:.2rem 0 .4rem;font-size:1.05rem}.card p{margin:0;color:var(--muted);font-size:.93rem}
+.ic{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:rgba(79,140,255,.16);font-size:1.15rem;margin-bottom:6px}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:.92rem}
+th,td{padding:.7rem .9rem;text-align:left;border-bottom:1px solid var(--line)}th{color:var(--muted);font-size:.74rem;text-transform:uppercase;letter-spacing:.05em}tr:last-child td{border-bottom:0}
+.y{color:#4ade80}.n{color:#6b7280}
+.steps{counter-reset:s;display:grid;gap:12px;padding:0;list-style:none}.steps li{counter-increment:s;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px 14px 56px;position:relative}
+.steps li::before{content:counter(s);position:absolute;left:16px;top:12px;width:28px;height:28px;border-radius:50%;background:var(--accent);display:grid;place-items:center;font-weight:700;font-size:.85rem}
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:.9rem 1.1rem;margin-bottom:10px}summary{cursor:pointer;font-weight:600}details p{color:var(--muted);margin:.6rem 0 0}
+code,pre{font-family:ui-monospace,Consolas,monospace;font-size:.88em}pre{background:#0c0d10;border:1px solid var(--line);border-radius:8px;padding:12px;overflow:auto}
+footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-size:.86rem}footer .wrap{display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap}
+@media(max-width:900px){.hero .wrap{grid-template-columns:1fr}.g3{grid-template-columns:1fr 1fr}nav.links{display:none}}
+@media(max-width:560px){.g3,.g2{grid-template-columns:1fr}.hero{padding-top:40px}section{padding:44px 0}th:nth-child(n+4),td:nth-child(n+4){display:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="logo" href="./"><img src="assets/favicon.png" alt="" width="28" height="28">ImgConvert</a>
+<nav class="links" aria-label="Sections"><a href="#features">Features</a><a href="#formats">Formats</a><a href="#how">How it works</a><a href="#faq">FAQ</a><a href="https://github.com/248Tech/ImgConvert">GitHub</a></nav>
+<a class="btn primary" href="demo/" style="padding:.45rem .9rem;font-size:.85rem">Try online demo</a></div></header>
+<main id="main">
+<section class="hero"><div class="wrap">
+  <div>
+    <span class="eyebrow">Free · Open source · Offline</span>
+    <h1>Convert images in a click. <span style="color:#8db4ff">Keep them private.</span></h1>
+    <p class="lead">A tiny, portable image converter for Windows. Drag files in, pick a format, done — HEIC to JPG, PNG, WebP, GIF and TIFF, with no installer, no ads and no telemetry.</p>
+    <div class="cta"><a class="btn primary" href="https://github.com/248Tech/ImgConvert/releases/latest">⬇ Download for Windows</a><a class="btn" href="demo/">▶ Try it in your browser</a></div>
+    <p class="fine">Single ~21 MB .exe · Windows 10/11 · MIT licensed</p>
+    <div class="badges" aria-label="Project badges">
+      <img alt="MIT License" src="https://img.shields.io/github/license/248Tech/ImgConvert?style=flat-square&color=4f8cff">
+      <img alt="Latest release" src="https://img.shields.io/github/v/release/248Tech/ImgConvert?style=flat-square&color=4f8cff">
+      <img alt="Downloads" src="https://img.shields.io/github/downloads/248Tech/ImgConvert/total?style=flat-square&color=22c55e">
+      <img alt="Stars" src="https://img.shields.io/github/stars/248Tech/ImgConvert?style=flat-square&color=f59e0b">
+      <img alt="Platform Windows" src="https://img.shields.io/badge/Windows-0078D6?style=flat-square&logo=windows&logoColor=white">
+      <img alt="Python" src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white">
+      <img alt="Offline" src="https://img.shields.io/badge/100%25-offline-22c55e?style=flat-square">
+      <img alt="No telemetry" src="https://img.shields.io/badge/telemetry-none-22c55e?style=flat-square">
+    </div>
+  </div>
+  <div class="shot"><img src="assets/screenshot.png" alt="ImgConvert Windows app: drag-and-drop area, format dropdown, output folder and Convert button" width="616" height="599" fetchpriority="high"></div>
+</div></section>
+
+<section id="features" class="alt"><div class="wrap">
+  <h2>Small tool, no strings attached</h2><p class="sub">Built around one idea: a utility this small shouldn’t need an installer, an account or a subscription.</p>
+  <div class="grid g3">
+    <div class="card"><div class="ic">🔒</div><h3>Private by design</h3><p>Never makes a network request. No telemetry, no analytics, no update checker — your images stay on your machine.</p></div>
+    <div class="card"><div class="ic">⚡</div><h3>Portable single .exe</h3><p>About 21 MB. No installer, no admin rights, nothing to set up. Run it from anywhere.</p></div>
+    <div class="card"><div class="ic">🖱️</div><h3>Right-click “Convert To”</h3><p>Add an Explorer menu per format; output lands next to the original. Per-user only, removable any time.</p></div>
+    <div class="card"><div class="ic">📱</div><h3>HEIC friendly</h3><p>Turn iPhone HEIC photos into universal JPEGs, with EXIF orientation fixed so nothing is sideways.</p></div>
+    <div class="card"><div class="ic">📂</div><h3>Batch &amp; drag-and-drop</h3><p>Drop files or whole folders. Progress bar and a per-file log; one bad file never stops the batch.</p></div>
+    <div class="card"><div class="ic">🌗</div><h3>Light &amp; dark themes</h3><p>Clean, native-feeling interface that follows your preference.</p></div>
+  </div>
+</div></section>
+
+<section id="formats"><div class="wrap">
+  <h2>Supported formats</h2><p class="sub">Convert between any of these in batches. The browser demo covers the formats browsers can encode.</p>
+  <table><thead><tr><th>Format</th><th>Windows app: read</th><th>Windows app: write</th><th>Online demo: write</th></tr></thead><tbody>
+    <tr><td>JPEG / JPG</td><td class="y">✔</td><td class="y">✔</td><td class="y">✔</td></tr>
+    <tr><td>PNG</td><td class="y">✔</td><td class="y">✔</td><td class="y">✔</td></tr>
+    <tr><td>WebP</td><td class="y">✔</td><td class="y">✔</td><td class="y">✔</td></tr>
+    <tr><td>GIF</td><td class="y">✔</td><td class="y">✔</td><td class="n">—</td></tr>
+    <tr><td>TIFF / TIF</td><td class="y">✔</td><td class="y">✔</td><td class="n">—</td></tr>
+    <tr><td>HEIC / HEIF</td><td class="y">✔</td><td class="y">✔</td><td class="n">—</td></tr>
+  </tbody></table>
+</div></section>
+
+<section id="how" class="alt"><div class="wrap">
+  <h2>How it works</h2><p class="sub">Four steps, no learning curve.</p>
+  <ol class="steps">
+    <li><b>Add images</b> — drag files or folders onto the window, use Add Files / Add Folder, or paste a path.</li>
+    <li><b>Pick a format</b> — JPEG, PNG, WebP, GIF, TIFF or HEIC from the Convert to menu.</li>
+    <li><b>Choose where to save</b> — defaults to a <code>converted/</code> folder next to your first file.</li>
+    <li><b>Click Convert</b> — watch the progress bar; failures are listed, the rest still run.</li>
+  </ol>
+  <p style="margin-top:22px"><a class="btn primary" href="demo/">Try the same flow in your browser →</a></p>
+</div></section>
+
+<section id="faq"><div class="wrap">
+  <h2>Frequently asked questions</h2><p class="sub">&nbsp;</p>
+  <details><summary>Does ImgConvert upload my images?</summary><p>No. It runs entirely on your computer and never makes a network request. There is no telemetry, analytics or update checker. The online demo also converts locally in your browser tab.</p></details>
+  <details><summary>How do I convert HEIC to JPG on Windows?</summary><p>Drag your HEIC files into ImgConvert, choose JPEG from “Convert to”, and click Convert. Orientation is corrected automatically.</p></details>
+  <details><summary>Why does Windows SmartScreen warn me?</summary><p>The exe is signed with a self-signed certificate rather than a paid public-CA certificate. On a new PC click “More info” → “Run anyway”, then use “Trust This App” in the app header to import the embedded public certificate for your account.</p></details>
+  <details><summary>Is it really free?</summary><p>Yes — MIT licensed, ad-free, no paid tier. The code is a single readable file: <a href="https://github.com/248Tech/ImgConvert/blob/master/imgconvert.py">imgconvert.py</a>.</p></details>
+  <details><summary>How do I remove the right-click menu?</summary><p>Run <code>ImgConvert.exe --uninstall-context-menu</code>. It only ever wrote to your user registry hive.</p></details>
+  <p style="margin-top:28px"><a class="btn primary" href="https://github.com/248Tech/ImgConvert/releases/latest">⬇ Download ImgConvert</a> <a class="btn" href="demo/">Try online demo</a></p>
+</div></section>
+</main>
+<footer><div class="wrap"><span>© 2026 Joe Wayne / 248Tech LLC · MIT License</span><span><a href="demo/">Online demo</a> · <a href="https://github.com/248Tech/ImgConvert">Source</a> · <a href="https://github.com/248Tech/ImgConvert/releases">Releases</a> · <a href="https://github.com/248Tech/ImgConvert/issues">Issues</a></span></div></footer>
+</body>
+</html>

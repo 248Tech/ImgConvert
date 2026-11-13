@@ -1,14 +1,38 @@
+<div align="center">
+
+<img src="site/assets/icon-192.png" alt="ImgConvert logo" width="96" height="96">
+
 # ImgConvert
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Platform: Windows](https://img.shields.io/badge/platform-Windows-0078D6.svg)](#download)
-[![Release](https://img.shields.io/github/v/release/248Tech/ImgConvert)](https://github.com/248Tech/ImgConvert/releases/latest)
+**Free, offline image converter for Windows — HEIC to JPG, PNG, WebP, GIF and TIFF in one click.**
+No ads · No telemetry · No installer · Open source
 
-A small, fast, offline image converter for Windows. Drag files in, pick a format, done.
+[![Download](https://img.shields.io/badge/⬇_Download-Windows_.exe-4f8cff?style=for-the-badge)](https://github.com/248Tech/ImgConvert/releases/latest)
+[![Live Demo](https://img.shields.io/badge/▶_Try_in_browser-online_demo-22c55e?style=for-the-badge)](https://248tech.github.io/ImgConvert/demo/)
 
-![ImgConvert screenshot](assets/screenshot.png)
+[![License: MIT](https://img.shields.io/github/license/248Tech/ImgConvert?style=flat-square&color=4f8cff)](LICENSE)
+[![Release](https://img.shields.io/github/v/release/248Tech/ImgConvert?style=flat-square&color=4f8cff)](https://github.com/248Tech/ImgConvert/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/248Tech/ImgConvert/total?style=flat-square&color=22c55e)](https://github.com/248Tech/ImgConvert/releases)
+[![Stars](https://img.shields.io/github/stars/248Tech/ImgConvert?style=flat-square&color=f59e0b)](https://github.com/248Tech/ImgConvert/stargazers)
+[![Last commit](https://img.shields.io/github/last-commit/248Tech/ImgConvert?style=flat-square&color=4f8cff)](https://github.com/248Tech/ImgConvert/commits/master)
+[![Issues](https://img.shields.io/github/issues/248Tech/ImgConvert?style=flat-square)](https://github.com/248Tech/ImgConvert/issues)
+![Platform: Windows](https://img.shields.io/badge/Windows-0078D6?style=flat-square&logo=windows&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
+![Offline](https://img.shields.io/badge/100%25-offline-22c55e?style=flat-square)
+![No telemetry](https://img.shields.io/badge/telemetry-none-22c55e?style=flat-square)
 
-## About
+[**Website**](https://248tech.github.io/ImgConvert/) · [**Online demo**](https://248tech.github.io/ImgConvert/demo/) · [Download](https://github.com/248Tech/ImgConvert/releases/latest) · [Report a bug](https://github.com/248Tech/ImgConvert/issues)
+
+<img src="assets/screenshot.png" alt="ImgConvert screenshot" width="420">
+
+</div>
+
+> **Try it before you download:** the [online demo](https://248tech.github.io/ImgConvert/demo/) converts JPEG, PNG and WebP right in your browser — your files never leave your device. The Windows app adds HEIC, GIF and TIFF, folders and the Explorer right-click menu.
+
+## About ImgConvert
+
+**Keywords:** image converter, HEIC to JPG, batch image converter, offline image converter for Windows, WebP converter, PNG to JPG, TIFF converter, portable, privacy-friendly.
+
 
 ImgConvert batch-converts images between JPEG/JPG, PNG, WebP, GIF, TIFF/TIF, and HEIC/HEIF. It was built around a simple idea: a tool this small shouldn't come with an installer, an account, a subscription, or a network connection.
 
@@ -31,7 +55,7 @@ ImgConvert batch-converts images between JPEG/JPG, PNG, WebP, GIF, TIFF/TIF, and
 
 Grab the latest Windows exe from the [Releases](https://github.com/248Tech/ImgConvert/releases/latest) page — no Python install needed.
 
-A [winget](https://github.com/microsoft/winget-pkgs) package (`248Tech.ImgConvert`) is pending review — once merged, you'll be able to run `winget install 248Tech.ImgConvert`. Track status: [PR #426950](https://github.com/microsoft/winget-pkgs/pull/426950).
+> **winget:** a winget package is not available yet (the first submission was closed without being merged). Until it is, download the `.exe` from [Releases](https://github.com/248Tech/ImgConvert/releases/latest).
 
 ## Running from source
 
@@ -81,4 +105,4 @@ Set-AuthenticodeSignature -FilePath "dist\ImgConvert.exe" -Certificate $cert -Ti
 
 ## License
 
-[MIT](LICENSE) — free to use, modify, and redistribute.
+Copyright © 2026 Joe Wayne / 248Tech LLC. [MIT](LICENSE) — free to use, modify, and redistribute.

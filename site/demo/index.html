@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Free Online Image Converter Demo: JPG, PNG, WebP · ImgConvert</title>
+<meta name="description" content="Try ImgConvert in your browser: batch-convert images to JPEG, PNG or WebP with quality and resize controls. Runs 100% locally in your browser. Nothing is uploaded. The Windows app adds HEIC, TIFF and GIF.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://248tech.github.io/ImgConvert/demo/">
+<link rel="icon" type="image/png" href="../assets/favicon.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta name="theme-color" content="#1e1f22">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ImgConvert online demo — convert images privately in your browser">
+<meta property="og:description" content="Drag in images, pick JPEG, PNG or WebP, download. Files never leave your device.">
+<meta property="og:image" content="https://248tech.github.io/ImgConvert/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"ImgConvert Online Demo","url":"https://248tech.github.io/ImgConvert/demo/","applicationCategory":"MultimediaApplication","operatingSystem":"Any (modern browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"isPartOf":{"@type":"SoftwareApplication","name":"ImgConvert","url":"https://248tech.github.io/ImgConvert/"}}
+</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="bar"><a class="brand" href="../"><img src="../assets/favicon.png" alt="" width="28" height="28">ImgConvert <span class="tag">online demo</span></a>
+  <nav><a href="../">Overview</a><a href="https://github.com/248Tech/ImgConvert/releases/latest" class="dl">Download for Windows</a><button id="theme" class="ghost" aria-label="Toggle light or dark theme">☀ Light mode</button></nav></header>
+
+<main>
+  <h1>Convert images in your browser</h1>
+  <p class="lede">100% local — your files are decoded and re-encoded on your device and <strong>never uploaded</strong>. This demo handles JPEG, PNG and WebP output; the <a href="https://github.com/248Tech/ImgConvert/releases/latest">Windows app</a> adds HEIC, TIFF and GIF, folders, and an Explorer right-click menu.</p>
+
+  <section class="card" aria-labelledby="h-add">
+    <div id="drop" class="drop" tabindex="0" role="button" aria-label="Add images: drop files here or press Enter to browse">
+      <strong id="h-add">Drag images here</strong><span>or click to choose files (JPG, PNG, WebP, GIF, AVIF, BMP…)</span>
+      <input id="file" type="file" accept="image/*" multiple hidden>
+    </div>
+    <div class="row">
+      <button id="clear" class="ghost">Clear</button>
+      <label>Convert to
+        <select id="fmt"><option value="jpeg">JPEG</option><option value="png">PNG</option><option value="webp">WebP</option></select></label>
+      <label id="qwrap">Quality <input id="q" type="range" min="40" max="100" value="85"><output id="qv">85</output></label>
+      <label>Max size
+        <select id="max"><option value="0">Original</option><option value="3840">3840 px</option><option value="1920">1920 px</option><option value="1280">1280 px</option><option value="800">800 px</option></select></label>
+      <span class="sp"></span>
+      <button id="go" class="primary" disabled>Convert</button>
+    </div>
+    <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+  </section>
+
+  <section id="results" class="card" hidden aria-live="polite">
+    <div class="row"><h2>Files</h2><span class="sp"></span><span id="summary" class="muted"></span><button id="zip" class="primary" disabled>Download all (.zip)</button></div>
+    <ul id="list" class="list"></ul>
+  </section>
+
+  <p class="muted note">Tip: PNG → JPEG fills transparency with white. EXIF rotation is applied automatically, like the desktop app. Output files get the same base name with the new extension.</p>
+</main>
+<footer><span>© 2026 Joe Wayne / 248Tech LLC · MIT</span><a href="https://github.com/248Tech/ImgConvert">Source on GitHub</a></footer>
+<script src="app.js"></script>
+</body>
+</html>

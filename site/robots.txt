@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://248tech.github.io/ImgConvert/sitemap.xml
